@@ -7,10 +7,6 @@ import Loading from "./Loading";
 import AuthorsList from "./AuthorsList";
 import AuthorDetail from "./AuthorDetail";
 
-const instance = axios.create({
-  baseURL: "https://the-index-api.herokuapp.com"
-});
-
 class App extends Component {
   state = {
     currentAuthor: null,
@@ -20,7 +16,9 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const res = await instance.get("/api/authors/");
+      const res = await axios.get(
+        "https://the-index-api.herokuapp.com/api/authors/"
+      );
       const authors = res.data;
       this.setState({
         authors: authors,
@@ -34,7 +32,9 @@ class App extends Component {
   selectAuthor = async authorID => {
     this.setState({ loading: true });
     try {
-      const res = await instance.get(`/api/authors/${authorID}/`);
+      const res = await axios.get(
+        `https://the-index-api.herokuapp.com/api/authors/${authorID}/`
+      );
       const author = res.data;
       this.setState({
         currentAuthor: author,
